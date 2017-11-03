@@ -275,6 +275,13 @@ public abstract class AbstractDevModeMojo extends AbstractMojo {
         getLog().debug("Ignoring " + artifact.getId() + "; no corresponding project reference.");
         continue;
       }
+
+      // gwt:codeserver launched as reactor but with -pl :...
+      if (reference.getDependencyArtifacts() == null) {
+        getLog().debug("Ignoring " + artifact.getId() + "; -pl.");
+        continue;
+      }
+
       addSources(reference, sources);
     }
   }
